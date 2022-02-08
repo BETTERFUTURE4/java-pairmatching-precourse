@@ -30,29 +30,23 @@ public class Level {
 		return null;
 	}
 
+	public boolean isDuplicatedPair(Mission missionIn, String end) {
+		for (Mission mission : missions) {
+			if (missionIn == mission || mission.getPairs(end) == null) {
+				continue;
+			}
+			Pairs pairsIn = missionIn.getPairs(end);
+			if (mission.getPairs(end).isInSamePair(pairsIn)) {
+				return true;
+			}
+		}
+		return false;
+	}
+
 	public void reset() {
 		for (Mission mission : missions) {
 			mission.reset();
 		}
-	}
-
-	public void setFrontendMissions(Pairs frontendPairs) {
-		// for (String name : Repository.frontendList) {
-		// 	ArrayList<String> parameterPairNames = new ArrayList<>(Arrays.asList(frontendPairs.findPair(name)));
-		// 	ArrayList<String> nowPairNames = new ArrayList<>();
-		// 	for (int i = 0; i < missions.size(); i++) {
-		// 		nowPairNames.addAll(Arrays.asList(missions.get(i).frontendPairs.findPair(name)));
-		// 	}
-		// 	parameterPairNames.addAll(nowPairNames);
-		// 	if (parameterPairNames.stream().distinct().count() != frontendPairs.findPair(name).length) {
-		// 		throw new IllegalArgumentException();
-		// 	}
-		// }
-		//	이름마다, 이름의 짝이 현재 프론트페어와 미션들페어중에 있을 때 예외처리
-	}
-
-	public boolean isEmpty() {
-		return missions.isEmpty();
 	}
 
 	@Override

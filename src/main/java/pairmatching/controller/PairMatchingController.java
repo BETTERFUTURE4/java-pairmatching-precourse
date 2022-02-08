@@ -32,19 +32,29 @@ public class PairMatchingController {
 	}
 
 	private void pairMatch() {
-		String[] input = InputController.getPairMatch();
+		String[] input = InputController.getPairMatchList();
 		String end = input[0];
 		Mission mission = Repository.levelsFind(input[1]).findMission(input[2]);
 
 		if (!mission.isEmpty(end) && InputController.getRePairMatch().equals(NO)) {
 			return;
 		}
-		mission.setPairs(end, new Pairs(Repository.getBranchList(end)));
-		OutputView.printPairs(mission.getPairs(end));
+
+		for (int matchCount = 0; matchCount < 3; matchCount++) {
+			mission.setPairs(end, new Pairs(Repository.getBranchList(end)));
+			if (Repository.levelsFind(input[1]).isDuplicatedPair(mission, end)) {
+				System.out.println("레벨 내에 중복된 페어가 있습니다. - " + matchCount + "번째 시도");
+				mission.reset(end);
+				continue;
+			}
+			OutputView.printPairs(mission.getPairs(end));
+			return;
+		}
+		System.out.println("3회 시도까지 매칭이 안됐습니다.");
 	}
 
 	private void pairSearch() {
-		String[] input = InputController.getPairMatch();
+		String[] input = InputController.getPairMatchList();
 		String end = input[0];
 		Mission mission = Repository.levelsFind(input[1]).findMission(input[2]);
 

@@ -31,14 +31,14 @@ public class InputController {
 		}
 	}
 
-	public static String[] getPairMatch() {
+	public static String[] getPairMatchList() {
 		try {
 			String input = InputView.wantedMissionInput();
 			new MissionValidator(input);
 			return input.split(REGEX);
 		} catch (IllegalArgumentException e) {
 			OutputView.printError(e.getMessage());
-			return getPairMatch();
+			return getPairMatchList();
 		}
 	}
 }

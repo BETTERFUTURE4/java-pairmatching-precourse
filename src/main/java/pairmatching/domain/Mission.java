@@ -42,6 +42,18 @@ public class Mission {
 		backendPairs = null;
 	}
 
+	public void reset(String end) {
+		if (end.equals(Constants.BACKEND)) {
+			backendPairs = null;
+			return;
+		}
+		if (end.equals(Constants.FRONTEND)) {
+			frontendPairs = null;
+			return;
+		}
+		throw new IllegalArgumentException(Constants.ERROR_MISSION_PATTERN);
+	}
+
 	@Override
 	public String toString() {
 		return missionName;

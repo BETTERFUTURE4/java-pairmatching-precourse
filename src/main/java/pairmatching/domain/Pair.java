@@ -1,10 +1,11 @@
 package pairmatching.domain;
 
-import java.util.HashSet;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 public class Pair {
-	private final HashSet<String> pair = new HashSet<>();
+	private final List<String> pair = new ArrayList<>();
 
 	public Pair(String pairOne, String pairTwo) {
 		this.pair.add(pairOne);
@@ -13,14 +14,6 @@ public class Pair {
 
 	public void setThreePair(String name) {
 		pair.add(name);
-	}
-
-	public HashSet<String> get() {
-		return pair;
-	}
-
-	public boolean isInPair(String name) {
-		return pair.contains(name);
 	}
 
 	@Override
@@ -32,10 +25,11 @@ public class Pair {
 	@Override
 	public String toString() {
 		// 프린트 원하는 방식으로 구현
-		if (pair.size() == 2) {
-			return pair.toString();
+		StringBuilder string = new StringBuilder();
+		for (String s : pair) {
+			string.append(s).append(" : ");
 		}
-		return pair.toString();
+		return string.substring(0,string.length()-3);
 	}
 
 	@Override
